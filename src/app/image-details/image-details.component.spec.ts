@@ -59,13 +59,7 @@ describe('ImageDetailsComponent', () => {
   
   });
 
-  xit('cuando la imagen existe es 3  debe retornar el json  de la imagen ',()=>{
-    expect(component.image).toEqual({ "id": 3, "brand": "gato", "url": "assets/images/gato1.jpg" })
-  });
-
-  xit('cuando la imagen no existe ,no debe retornar el json  de la imagen ',()=>{
-    expect(component.image).toBeNull();
-  });
+  
 
   it('cuando se carga la pantalla , debe existir un contenedor con la clase img-container', ()=>{
     expect(fixture.nativeElement.querySelector('.img-contaier')).toBeDefined();
