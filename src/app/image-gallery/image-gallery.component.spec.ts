@@ -10,18 +10,18 @@ describe('ImageGalleryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GalleryComponent, FilterimagesPipe ],
+      declarations: [GalleryComponent, FilterimagesPipe],
       providers: [
         {
           provide: ImageService,
           useValue: {
             getImages: () => ImagesdelatilsMock.slice(0),
-            getImage: () => ImagesdelatilsMock.slice(0).find(Images => Images.id == 1)    
-          }
-        }
-      ]
-    })
-    .compileComponents();
+            getImage: () =>
+              ImagesdelatilsMock.slice(0).find((Images) => Images.id == 1),
+          },
+        },
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -30,12 +30,12 @@ describe('ImageGalleryComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('debe crearse el componente', () => {
     expect(component).toBeTruthy();
   });
 });
 
-const ImagesdelatilsMock = [    
-  { "id": 1, "brand": "perro", "url": "assets/images/perro1.jpg" },    
-  { "id": 2, "brand": "perro", "url": "assets/images/perro2.jpg" },
-]  
+const ImagesdelatilsMock = [
+  { id: 1, brand: 'perro', url: 'assets/images/perro1.jpg' },
+  { id: 2, brand: 'perro', url: 'assets/images/perro2.jpg' },
+];
