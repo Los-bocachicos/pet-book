@@ -1,6 +1,6 @@
 # PetBook
 
-[![Los Bocachicos](https://circleci.com/gh/Los-bocachicos/pet-book.svg?style=svg](https://app.circleci.com/pipelines/github/Los-bocachicos/pet-book?branch=circleci-project-setup)
+[![LosBocachicos](https://circleci.com/gh/circleci/circleci-docs.svg?style=svg)](https://app.circleci.com/pipelines/github/Los-bocachicos/pet-book?branch=circleci-project-setup)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.7.
 
