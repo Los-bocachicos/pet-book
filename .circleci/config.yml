@@ -20,8 +20,8 @@ jobs:
           name: Build
           command: npm run build
       - persist_to_workspace:
-        root: ~/project
-        paths: .
+          root: ~/project
+          paths: .
   deploy:
     executor: aws-cli/default
     steps:
