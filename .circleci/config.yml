@@ -1,7 +1,46 @@
 version: 2.1
 orbs:
-  node: circleci/node@3.0.0
+  node: circleci/node@4.1.0
+  aws-cli: circleci/aws-cli@1.0.0
+jobs:
+  unit_test:
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages
+      - run:
+          name: Unit test
+          command: npm run test-ci
+  build:
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages
+      - run:
+          name: Build
+          command: npm run build
+      - persist_to_workspace:
+        root: ~/project
+        paths: .
+  deploy:
+    executor: aws-cli/default
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - aws-cli/install
+      - aws-cli/setup
+      - run:
+          name: Deploy to AWS
+          command: |
+            cd wecruitio/build
+            aws s3 sync . s3://pet-book-bocachicos
 workflows:
-  node-tests:
+  defaul:
     jobs:
-      - node/test
+      - unit_test
+      - build:
+          requires:
+            - unit_test
+      - deploy:
+          requires:
+            - build
