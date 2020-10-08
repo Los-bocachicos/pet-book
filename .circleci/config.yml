@@ -5,8 +5,7 @@ orbs:
   browser-tools: circleci/browser-tools@1.0.1
 jobs:
   unit_test:
-    docker:
-      - image: cimg/node:14.13.0
+    executor: node/default
     steps:
       - checkout
       - node/install-packages
@@ -37,7 +36,7 @@ jobs:
       - run:
           name: Deploy to AWS
           command: |
-            cd wecruitio/build
+            cd dist
             aws s3 sync . s3://pet-book-bocachicos
 workflows:
   defaul:
