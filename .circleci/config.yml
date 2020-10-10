@@ -23,8 +23,8 @@ jobs:
       - sonarqube/setup-environment
       - sonarqube/install-engine
       - sonarqube/code-analysis:
-          organization: Los-Bocachicos
-          host_url: https://sonarcloud.io/
+          organization: los-bocachicos
+          host_url: $SONAR_SERVER
           login: $SONAR_TOKEN
           projectBaseDir: .
           projectKey: Los-bocachicos_pet-book
