@@ -16,7 +16,8 @@ jobs:
           name: Unit test
           command: npm run test-ci
   sonar-scanner:
-    executor: node/default
+    docker:
+      - image: openjdk:11
     steps:
       - checkout
       - sonarscanner/check-code-quality
