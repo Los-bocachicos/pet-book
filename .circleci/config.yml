@@ -26,6 +26,9 @@ jobs:
           host_url: $SONAR_SERVER
           login: $SONAR_TOKEN
           projectKey: Los-bocachicos_pet-book
+          github_repository: https://github.com/Los-bocachicos/pet-book
+          github_oauth: ""
+
   build:
     executor: node/default
     steps:
