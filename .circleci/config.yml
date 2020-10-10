@@ -15,7 +15,7 @@ jobs:
       - run:
           name: Unit test
           command: npm run test-ci
-  scanner:
+  sonar-scanner:
     executor: node/default
     steps:
       - checkout
@@ -45,6 +45,7 @@ workflows:
   defaul:
     jobs:
       - unit_test
+      - sonar-scanner
       - build:
           requires:
             - unit_test
