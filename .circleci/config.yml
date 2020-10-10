@@ -14,8 +14,7 @@ jobs:
       - browser-tools/install-chromedriver
       - run:
           name: Unit test
-          command: |
-            npm run test-ci
+          command: npm run test-ci
   scanner:
     executor: node/default
     steps:
