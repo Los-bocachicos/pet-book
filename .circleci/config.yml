@@ -3,7 +3,7 @@ orbs:
   node: circleci/node@4.1.0
   aws-cli: circleci/aws-cli@1.0.0
   browser-tools: circleci/browser-tools@1.0.1
-  sonarcloud: sonarsource/sonarcloud@1.0.2
+  sonarscanner: psl/sonarscanner@0.0.4
 jobs:
   unit_test:
     executor: node/default
@@ -19,7 +19,7 @@ jobs:
     executor: node/default
     steps:
       - checkout
-      - sonarcloud/scan
+      - sonarcloud/check-code-quality
   build:
     executor: node/default
     steps:
