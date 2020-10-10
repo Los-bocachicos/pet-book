@@ -19,7 +19,7 @@ jobs:
     executor: node/default
     steps:
       - checkout
-      - sonarcloud/check-code-quality
+      - sonarscanner/check-code-quality
   build:
     executor: node/default
     steps:
