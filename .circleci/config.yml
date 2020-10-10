@@ -29,18 +29,20 @@ jobs:
           name: Build
           command: npm run build
       - persist_to_workspace:
-          root: ~/project/dist/pet-book
+          root: ~/project
           paths: .
   deploy:
     executor: aws-cli/default
     steps:
       - attach_workspace:
-          at: ~/project/dist/pet-book
+          at: ~/project
       - aws-cli/install
       - aws-cli/setup
       - run:
           name: Deploy to AWS
-          command: aws s3 sync . s3://pet-book-bocachicos
+          command: |
+            cd dist/pet-book
+            aws s3 sync . s3://pet-book-bocachicos
 workflows:
   defaul:
     jobs:
@@ -49,6 +51,7 @@ workflows:
       - build:
           requires:
             - unit_test
+            - sonar-scanner
       - deploy:
           requires:
             - build
