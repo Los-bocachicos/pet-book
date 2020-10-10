@@ -16,7 +16,7 @@ jobs:
           command: npm run test-ci
   sonar-scanner:
     docker:
-      - image: sonarsource/sonar-scanner-cli
+    - image: sonarsource/sonar-scanner-cli
       environment:
         SONAR_HOST_URL: $SONAR_SERVER
     steps:
