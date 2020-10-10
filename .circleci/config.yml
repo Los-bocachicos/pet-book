@@ -6,7 +6,8 @@ orbs:
   sonarqube: clicklogiq/sonarqube@0.0.2
 jobs:
   unit_test:
-    executor: node/default
+    docker:
+      - image: ubuntu
     steps:
       - checkout
       - node/install-packages
