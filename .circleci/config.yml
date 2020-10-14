@@ -21,7 +21,7 @@ jobs:
       - checkout
       - run:
           name: Sonar Analysis
-          command: docker run --rm -e SONAR_HOST_URL="https://sonarcloud.io" -v "$(pwd)":/usr/src sonarsource/sonar-scanner-cli
+          command: docker run --rm -e SONAR_HOST_URL="https://sonarcloud.io" -e SONAR_TOKEN="$SONAR_TOKEN" -v "$(pwd)":/usr/src sonarsource/sonar-scanner-cli
 
   build:
     executor: node/default
