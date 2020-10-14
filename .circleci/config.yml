@@ -1,0 +1,60 @@
+version: 2.1
+orbs:
+  node: circleci/node@4.1.0
+  aws-cli: circleci/aws-cli@1.0.0
+  browser-tools: circleci/browser-tools@1.0.1
+  sonarqube: clicklogiq/sonarqube@0.0.2
+jobs:
+  unit_test:
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
+      - run:
+          name: Unit test
+          command: npm run test-ci
+  sonar-scanner:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Sonar Analysis
+          command: docker run --rm -e SONAR_HOST_URL="https://sonarcloud.io" -e SONAR_TOKEN="$SONAR_TOKEN" -v "$(pwd)":/usr/src sonarsource/sonar-scanner-cli
+
+  build:
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages
+      - run:
+          name: Build
+          command: npm run build
+      - persist_to_workspace:
+          root: ~/project
+          paths: .
+  deploy:
+    executor: aws-cli/default
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - aws-cli/install
+      - aws-cli/setup
+      - run:
+          name: Deploy to AWS
+          command: |
+            cd dist/pet-book
+            aws s3 sync . s3://pet-book-bocachicos
+workflows:
+  default:
+    jobs:
+      - unit_test
+      - sonar-scanner
+      - build:
+          requires:
+            - unit_test
+            - sonar-scanner
+      # - deploy:
+      #     requires:
+      #       - build
