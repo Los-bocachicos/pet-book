@@ -20,16 +20,9 @@ jobs:
       - image: node:alpine
     steps:
       - checkout
-      - sonarqube/setup-environment
-      - sonarqube/install-engine
-      - sonarqube/code-analysis:
-          organization: los-bocachicos
-          host_url: https://sonarcloud.io
-          login: $SONAR_TOKEN
-          projectBaseDir: .
-          projectKey: Los-bocachicos_pet-book
-          github_repository: https://github.com/Los-bocachicos/pet-book
-          github_oauth: ""
+      - run:
+          name: Sonar Analysis
+          command: docker run --rm -e SONAR_HOST_URL="https://sonarcloud.io" -v "~/project:/usr/src" sonarsource/sonar-scanner-cli
 
   build:
     executor: node/default
@@ -55,7 +48,7 @@ jobs:
             cd dist/pet-book
             aws s3 sync . s3://pet-book-bocachicos
 workflows:
-  defaul:
+  default:
     jobs:
       - unit_test
       - sonar-scanner
@@ -63,6 +56,6 @@ workflows:
           requires:
             - unit_test
             - sonar-scanner
-      - deploy:
-          requires:
-            - build
+      # - deploy:
+      #     requires:
+      #       - build
