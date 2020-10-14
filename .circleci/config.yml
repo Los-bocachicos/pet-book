@@ -16,8 +16,7 @@ jobs:
           name: Unit test
           command: npm run test-ci
   sonar-scanner:
-    docker:
-      - image: node:alpine
+    machine: true
     steps:
       - checkout
       - run:
@@ -25,7 +24,7 @@ jobs:
           command: docker run --rm -e SONAR_HOST_URL="https://sonarcloud.io" -v "~/project:/usr/src" sonarsource/sonar-scanner-cli
 
   build:
-    machine: true
+    executor: node/default
     steps:
       - checkout
       - node/install-packages
