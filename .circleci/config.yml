@@ -36,6 +36,14 @@ jobs:
       - persist_to_workspace:
           root: ~/project
           paths: .
+  zip:
+    machine: true
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - run:
+          name: Zip build
+          command: docker run -v dist/pet-book:/to_zip zip -r pet-book.zip /to_zip
   deploy:
     executor: aws-cli/default
     steps:
@@ -58,6 +66,9 @@ workflows:
       - build:
           requires:
             - sonar-scanner
+      - zip:
+          requires:
+            - build
       - deploy:
           requires:
             - build
