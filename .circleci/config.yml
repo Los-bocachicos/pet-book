@@ -3,6 +3,7 @@ orbs:
   node: circleci/node@4.1.0
   aws-cli: circleci/aws-cli@1.0.0
   browser-tools: circleci/browser-tools@1.0.1
+  sonarcloud: extendaretail/sonarcloud@1.0.0
 jobs:
   unit_test:
     executor: node/default
@@ -21,7 +22,7 @@ jobs:
       - run:
           name: Sonar Analysis
           command: docker run --rm -e SONAR_HOST_URL="https://sonarcloud.io" -e SONAR_TOKEN="$SONAR_TOKEN" -v "$(pwd)":/usr/src sonarsource/sonar-scanner-cli
-
+      - sonarcloud/check_quality_gate
   build:
     executor: node/default
     steps:
