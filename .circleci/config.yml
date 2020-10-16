@@ -21,7 +21,9 @@ jobs:
       - checkout
       - run:
           name: Sonar Analysis
-          command: ./node_modules/sonarqube-scanner/dist/bin/sonar-scanner -Dsonar.login=$SONAR_AUTH_TOKEN
+          command: |
+            npm i -D sonarqube-scanner
+            ./node_modules/sonarqube-scanner/dist/bin/sonar-scanner -Dsonar.login=$SONAR_AUTH_TOKEN
       - sonarcloud/check_quality_gate
   build:
     executor: node/default

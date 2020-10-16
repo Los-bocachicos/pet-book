@@ -45,7 +45,6 @@
     "karma-junit-reporter": "^2.0.1",
     "protractor": "~5.4.3",
     "puppeteer": "^3.0.2",
-    "sonarqube-scanner": "^2.7.0",
     "ts-node": "~8.3.0",
     "tslint": "~5.18.0",
     "typescript": "~3.7.5"
