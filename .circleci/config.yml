@@ -16,7 +16,8 @@ jobs:
           name: Unit test
           command: npm run test-ci
   sonar-scanner:
-    machine: true
+    # machine: true
+    executor: node/default
     steps:
       - checkout
       - sonarcloud/scan_with_npm
