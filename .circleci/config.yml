@@ -24,7 +24,8 @@ jobs:
           name: Sonar Analysis
           # command: docker run --rm -e SONAR_HOST_URL="https://sonarcloud.io" -e SONAR_TOKEN="$SONAR_AUTH_TOKEN" -v "$(pwd)":/usr/src sonarsource/sonar-scanner-cli
           command: |
-            sudo npm install -g sonarqube-scanner
+            npm install -g sonarqube-scanner
+            chmod 777 .circleci/*
             sonar-scanner
       - sonarcloud/check_quality_gate
   build:
