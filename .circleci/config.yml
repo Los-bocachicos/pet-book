@@ -16,16 +16,12 @@ jobs:
           name: Unit test
           command: npm run test-ci
   sonar-scanner:
-    # machine: true
     executor: node/default
     steps:
       - checkout
       - run:
           name: Sonar Analysis
-          # command: docker run --rm -e SONAR_HOST_URL="https://sonarcloud.io" -e SONAR_TOKEN="$SONAR_AUTH_TOKEN" -v "$(pwd)":/usr/src sonarsource/sonar-scanner-cli
-          command: |
-            npm i -D sonarqube-scanner
-            ./node_modules/sonarqube-scanner/dist/bin/sonar-scanner -Dsonar.login=$SONAR_AUTH_TOKEN
+          command: ./node_modules/sonarqube-scanner/dist/bin/sonar-scanner -Dsonar.login=$SONAR_AUTH_TOKEN
       - sonarcloud/check_quality_gate
   build:
     executor: node/default
@@ -54,10 +50,11 @@ workflows:
   default:
     jobs:
       - unit_test
-      - sonar-scanner
-      - build:
+      - sonar-scanner:
           requires:
             - unit_test
+      - build:
+          requires:
             - sonar-scanner
       - deploy:
           requires:
