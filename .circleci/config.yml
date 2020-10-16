@@ -20,10 +20,12 @@ jobs:
     executor: node/default
     steps:
       - checkout
-      - sonarcloud/scan_with_npm
-      # - run:
-      #     name: Sonar Analysis
-      #     command: docker run --rm -e SONAR_HOST_URL="https://sonarcloud.io" -e SONAR_TOKEN="$SONAR_AUTH_TOKEN" -v "$(pwd)":/usr/src sonarsource/sonar-scanner-cli
+      - run:
+          name: Sonar Analysis
+          # command: docker run --rm -e SONAR_HOST_URL="https://sonarcloud.io" -e SONAR_TOKEN="$SONAR_AUTH_TOKEN" -v "$(pwd)":/usr/src sonarsource/sonar-scanner-cli
+          command: |
+            sudo npm install -g sonarqube-scanner
+            sonar-scanner
       - sonarcloud/check_quality_gate
   build:
     executor: node/default
