@@ -25,7 +25,7 @@ jobs:
           # command: docker run --rm -e SONAR_HOST_URL="https://sonarcloud.io" -e SONAR_TOKEN="$SONAR_AUTH_TOKEN" -v "$(pwd)":/usr/src sonarsource/sonar-scanner-cli
           command: |
             npm i -D sonarqube-scanner
-            ./node_modules/sonarqube-scanner/dist/bin/sonar-scanner
+            ./node_modules/sonarqube-scanner/dist/bin/sonar-scanner -Dsonar.login=$SONAR_AUTH_TOKEN
       - sonarcloud/check_quality_gate
   build:
     executor: node/default
