@@ -43,7 +43,7 @@ jobs:
           at: ~/project
       - run:
           name: Zip build
-          command: docker run -v /home/circleci/project/pet-book:/to_zip kramos/alpine-zip -r pet-book.zip /to_zip
+          command: docker run -v /home/circleci/project/pet-book:/to_zip -w /to_zip kramos/alpine-zip -r pet-book.zip /to_zip
       - store_artifacts:
           path: /home/circleci/project/pet-book/pet-book.zip
       - persist_to_workspace:
