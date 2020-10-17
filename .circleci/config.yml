@@ -43,7 +43,7 @@ jobs:
           at: ~/project
       - run:
           name: Zip build
-          command: docker run -v dist/pet-book:/to_zip zip -r pet-book.zip /to_zip
+          command: docker run -v dist/pet-book:/to_zip kramos/alpine-zip -r pet-book.zip /to_zip
   deploy:
     executor: aws-cli/default
     steps:
@@ -59,16 +59,17 @@ jobs:
 workflows:
   default:
     jobs:
-      - unit_test
-      - sonar-scanner:
-          requires:
-            - unit_test
-      - build:
-          requires:
-            - sonar-scanner
+      # - unit_test
+      # - sonar-scanner:
+      #     requires:
+      #       - unit_test
+      # - build:
+      #     requires:
+      #       - sonar-scanner
+      - build
       - zip:
           requires:
             - build
-      - deploy:
-          requires:
-            - build
+      # - deploy:
+      #     requires:
+      #       - build
