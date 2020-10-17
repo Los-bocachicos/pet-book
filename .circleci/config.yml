@@ -65,14 +65,13 @@ jobs:
 workflows:
   default:
     jobs:
-      # - unit_test
-      # - sonar-scanner:
-      #     requires:
-      #       - unit_test
-      # - build:
-      #     requires:
-      #       - sonar-scanner
-      - build
+      - unit_test
+      - sonar-scanner:
+          requires:
+            - unit_test
+      - build:
+          requires:
+            - sonar-scanner
       - zip:
           requires:
             - build
