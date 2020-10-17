@@ -58,9 +58,7 @@ jobs:
       - aws-cli/setup
       - run:
           name: Deploy to AWS
-          command: |
-            cd dist/pet-book
-            aws s3 sync . s3://pet-book-bocachicos
+          command: aws s3 sync . s3://pet-book-bocachicos
 workflows:
   default:
     jobs:
