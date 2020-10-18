@@ -49,8 +49,11 @@ steps:
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
-- task: S3Upload@0
+- task: S3Upload@1
   inputs:
-    BucketName: 'pet-book-bocachicos-artifact'
-    File: '$(Build.ArtifactStagingDirectory)/*zip'
-    Key: 'pet-book-azure.zip'
+    awsCredentials: 'marteoma-aws'
+    regionName: 'us-east-1'
+    bucketName: 'pet-book-bocachicos-artifact'
+    sourceFolder: '$(Build.ArtifactStagingDirectory)'
+    globExpressions: '*.zip'
+    targetFolder: 'artefactos'
