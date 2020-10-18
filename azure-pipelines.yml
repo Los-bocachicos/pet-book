@@ -19,10 +19,10 @@ steps:
   displayName: 'Unit Test'
   inputs:
     script: 'npm run test-ci'
-    
+
 - task: SonarCloudPrepare@1
   inputs:
-    SonarCloud: 'sonarcloud'
+    SonarCloud: 'sonarcloud-bocachicos'
     organization: 'los-bocachicos'
     scannerMode: 'CLI'
     configMode: 'file'
@@ -51,10 +51,9 @@ steps:
 
 - task: S3Upload@1
   inputs:
-    awsCredentials: 'aws-cuentapoc'
+    awsCredentials: 'marteoma-aws'
     regionName: 'us-east-1'
     bucketName: 'pet-book-bocachicos-artifact'
     sourceFolder: '$(Build.ArtifactStagingDirectory)'
     globExpressions: '*.zip'
     targetFolder: 'artefactos'
-    createBucket: true
