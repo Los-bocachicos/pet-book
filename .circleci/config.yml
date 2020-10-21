@@ -15,10 +15,14 @@ jobs:
       - run:
           name: Unit test
           command: npm run test-ci
+      - persist_to_workspace:
+          root: ~/project
+          paths: .
   sonar-scanner:
     executor: node/default
     steps:
-      - checkout
+      - attach_workspace:
+          at: ~/project
       - run:
           name: Sonar Analysis
           command: |
